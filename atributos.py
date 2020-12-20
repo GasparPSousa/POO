@@ -15,6 +15,10 @@ OBS: Método Construtor: É um método especial para a construção do Objeto.
 
 Médodo é uma função dentro de uma classe.
 
+OBS: self nada mais é do que o objeto que está executando o método.
+A palavra self é uma convenção utilizada por programadores em Python.
+self é sempre o primeiro parâmetro.
+
 
 """
 
@@ -31,6 +35,13 @@ class Lampada:
         self.voltagem = voltagem
         self.cor = cor
         self.ligada = False
+
+
+# self é o próprio objeto
+# Você está falando:
+# O atribuoto voltagem do Objeto Lampada vai receber voltagem.
+# O atributo cor do Objeto Lampada vai receber cor
+# O atributo ligada do Objeto Lampada vai receber False.
 
 
 class ContaCorrente:
@@ -56,5 +67,9 @@ class Usuario:
         self.email = email
         self.senha = senha
 
-
+# self é o próprio objeto
+# Você está falando:
+# O Objeto Usuario no atributo nome, vai receber nome.
+# O Objeto Usuario no atributo email, vai receber email.
+# O Objeto Usuário no atributo senha, vai receber senha.
 
