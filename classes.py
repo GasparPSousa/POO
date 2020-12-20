@@ -24,6 +24,8 @@ Se o nome for composto, utiliza-se  as iniais de ambas as palavras em maiúsculo
 Mas as classes internas em python são em minúsculas. Desse forma fica fácil identificar o que é uma
 classe interna do python e o que não é.
 
+OBS: Quando estamos planejando um software e definimos quais classes teremos que ter no sistema, clamamos
+estes objetos que serão mapeados para classe de Entidades.
 
 
 """
