@@ -3,11 +3,32 @@ POO - Métodos
 
 - Métodos (funções) <- Representam comportamentos do objeto. Ou seja, as ações que esse objeto
 pode realizar no seu sistema.
+_ Métodos nada mais são que funçoes dentro de uma classe.
 
 Em Python, dividimos os métodos em 2 grupos:
     - Métodos de Instância
     _ Métodos de Classe
 
+
+    # Métodos de Instância
+    Por que método de Instância? Pq precisamos de uma instância da classe para utilizá-lo.
+                                Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
+    É um método que está dentro da prória classe.
+
+O método dunder init __init__ é um objeto especial chamado de construtor e sua função é
+contruir o objeto a partir da classe.
+
+OBS: Todo elemento em Python que "inicia E finaliza" com duplo underline é chamado de dunder(Double Underline)
+
+OBS: Os métodos/funções dunder em Python são chamados de Métodos Mágicos.
+
+ATENÇÃO!! Por mais que possamos criar nossas próprias funções utilizando dunder(underline no início e no fim),
+não é aconselhado. Python possui vários métodos com essa forma de nomeclatura e pode ser que mudemos o comportamento
+dessas funções mágicas internas da linguagem. Então, evite ao máximo! De preferência, NUNCA o faça.
+
+
+# Em Python, Métodos são escritos em letras minúsculas.
+Se o nome for composto, o nome terá as palavras separadas por underline.
 
 """
 
@@ -43,11 +64,49 @@ class Produto:
         self.__valor = valor
         Produto.contador = self.__id
 
+    def desconto(self, porcentagem):
+        """ Retorna o valor do produto com desconto"""
+        return (self.__valor * (100 - porcentagem)) / 100
+        # A função do self aqui é pegar o produto em si.
+
 
 class Usuario:
 
-    def __init__(self, nome, email, senha):
+    def __init__(self, nome, sobrenome, email, senha):
         self.__nome = nome
+        self.__sobrenome = sobrenome
         self.__email = email
         self.__senha = senha
 
+    def nome_completo(self):
+        return f'{self.__nome} {self.__sobrenome}'
+
+
+
+p1 = Produto('Play Station 4', 'Video game', 2300)
+
+print(p1.desconto(20))
+# Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
+
+# print(Produto.desconto(40)) # Dá Erro, pq ela não tem valor,não tem objeto.
+
+print(Produto.desconto(p1, 20)) # Agora conseguimos fazer pela classe, esse p1 é o próprio objeto.
+# self, desconto e o self é o próprio objeto em si.
+
+print()
+
+user1 = Usuario('Gaspar', 'Sousa', 'gasparufrj@gmail.com', '123456')
+user2 = Usuario('Cristina', 'Salles', 'salles@gmail.com', '654321')
+
+print(user1.nome_completo()) # Aqui o self é o user1. Aqui estou usando a instância user1
+print(user2.nome_completo()) # Aqui o self é o user2. Aqui estou usando a instância user2
+
+print(Usuario.nome_completo(user1)) # Aqui estou usando a Classe e a classe não tem self, ela não tem instância,
+# então passei o self user1 como parâmetro.
+print(Usuario.nome_completo(user2)) # Aqui estou usando a Classe e a classe não tem self, ela não tem instância,
+# então passei o self user2 como parâmetro.
+
+print()
+
+print(f'Senha User 1: {user1._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
+print(f'Senha User 2: {user2._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
