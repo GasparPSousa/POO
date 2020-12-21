@@ -10,7 +10,7 @@ Em Python, dividimos os métodos em 2 grupos:
     _ Métodos de Classe
 
 
-    # Métodos de Instância
+    ## Métodos de Instância
 
     Por que método de Instância? Pq precisamos de uma instância da classe para utilizá-lo.
                                 Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
@@ -19,7 +19,7 @@ Em Python, dividimos os métodos em 2 grupos:
     Fazemos acesso aos atributos de instância.
 
 
-    # Métodos de Classe
+    ## Métodos de Classe
 
     Mesma ideia dos atributos de classe.
 
@@ -30,7 +30,16 @@ Em Python, dividimos os métodos em 2 grupos:
 
     São conhecidos como "métodos estáticos" em outras linguagens.
 
+    O decorator é @classmethod
+
     Não fazemos acesso aos atributos de instância.
+
+
+    ## Métodos Estáticos
+
+    Não tem cls, agente não tem acesso a classe.
+
+    O decorator é @staticmethod
 
 
 
@@ -108,6 +117,10 @@ class Usuario:
     @classmethod
     def ver(cls):
         print('Teste')
+
+    @staticmethod
+    def definicao():
+        return 'UXR344'
 
     def __init__(self, nome, sobrenome, email, senha):
         self.__id = Usuario.contador + 1
@@ -192,12 +205,23 @@ print()
 
 # Métodos de Classe
 
-user = Usuario('Felicity', 'Jones', 'felicity@gmail.com', '123456') # Acessando o método privado dentro da classe.
-
-# Usuario.conta_usuarios() # Forma correta de acesso. Via o nome da classe.
-# user.conta_usuarios() # Possível, mas incorreta. Via a instância da classe.
+# user = Usuario('Felicity', 'Jones', 'felicity@gmail.com', '123456') # Acessando o método privado dentro da classe.
 #
-# Usuario.ver()
+# # Usuario.conta_usuarios() # Forma correta de acesso. Via o nome da classe.
+# # user.conta_usuarios() # Possível, mas incorreta. Via a instância da classe.
+# #
+# # Usuario.ver()
+#
+# #print(user.__gera_usuario()) # Vai dar erro, pois não tenho acesso ao método privado.
+# print(user._Usuario__gera_usuario()) # Acesso de forma ruim.
 
-#print(user.__gera_usuario()) # Vai dar erro, pois não tenho acesso ao método privado.
-print(user._Usuario__gera_usuario()) # Acesso de forma ruim.
+# Métodos Estáticos
+
+print(Usuario.contador)
+
+print(Usuario.definicao())
+
+user = Usuario('Felicity', 'Jones', 'felicity@gmail.com', '123456')
+
+print(user.contador)
+print(user.definicao())
