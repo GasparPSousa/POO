@@ -108,14 +108,27 @@ class Acesso:
 
 # Exemplo
 
-user = Acesso('user@gmail.com', '123456')
+# user = Acesso('user@gmail.com', '123456')
+#
+# print(user.email)
+# # print(user.__senha) # AtributeError - Isso é apenas um nível de segurança que Python coloca.
+# print(dir(user))
+# print(user._Acesso__senha) # Temos acesso, mas não deveríamos fazer esse acesso.
+# # Essa junção do nome da classe com o nome do atributo privado(_Acesso__senha)  é um Name Mungling.
+#
+#
+# user.mostra_senha()
+# user.mostra_email()
 
-print(user.email)
-# print(user.__senha) # AtributeError - Isso é apenas um nível de segurança que Python coloca.
-print(dir(user))
-print(user._Acesso__senha) # Temos acesso, mas não deveríamos fazer esse acesso.
-# Essa junção do nome da classe com o nome do atributo privado(_Acesso__senha)  é um Name Mungling.
 
+# O que significa Atributo de Instância?
 
-user.mostra_senha()
-user.mostra_email()
+## Significa que ao criarmos instâncias/objetos de uma classe, todas as instâncias terão estes atributos.
+
+user1 = Acesso('user1@gmail.com', '123456')
+user2 = Acesso('user2@gmail.com', '654321')
+# Duas Instâncias/Dois Objetos da classe Acesso. Ambos tem tanto email quanto senha.
+
+user1.mostra_email()
+user2.mostra_email()
+
