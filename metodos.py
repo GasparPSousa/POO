@@ -11,15 +11,28 @@ Em Python, dividimos os métodos em 2 grupos:
 
 
     # Métodos de Instância
+
     Por que método de Instância? Pq precisamos de uma instância da classe para utilizá-lo.
                                 Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
     É um método que está dentro da prória classe.
 
+    Fazemos acesso aos atributos de instância.
+
+
     # Métodos de Classe
+
     Mesma ideia dos atributos de classe.
+
     Os métodos de classe não estão vinculados a nenhuma instância da classe, mas sim diretamente a ela.
+
     Uma diferença aqui nos métodos de classe em relação aos atributos de classe, é que na declaração
-    desses métodos, agente utiliza um decorator para indicar que o método é de classe e não de instância.
+    desses métodos, agente utiliza um DECORATOR para indicar que o método é de classe e não de instância.
+
+    São conhecidos como "métodos estáticos" em outras linguagens.
+
+    Não fazemos acesso aos atributos de instância.
+
+
 
 O método dunder init __init__ é um objeto especial chamado de construtor e sua função é
 contruir o objeto a partir da classe.
@@ -89,7 +102,12 @@ class Usuario:
 
     @classmethod #decorator
     def conta_usuarios(cls): # O primeiro parâmetro não é o self, mas sim o cls, que é a própria classe.
+        print(f'Classe: {cls}')
         print(f'Temos {cls.contador} usuário(s) no sistema ')
+
+    @classmethod
+    def ver(cls):
+        print('Teste')
 
     def __init__(self, nome, sobrenome, email, senha):
         self.__id = Usuario.contador + 1
@@ -100,6 +118,7 @@ class Usuario:
         # rounds vai fazer 200000 embaralhamentos. Qto mais embaralhado, mais a chance da senha ser forte.
         # salt_size é o tamanho da parte do texto que será juntado a outro para criptografar.
         Usuario.contador = self.__id
+        print(f'Usuário criado: {self.__gera_usuario()}')
 
 
     def nome_completo(self):
@@ -109,6 +128,9 @@ class Usuario:
         if cryp.verify(senha, self.__senha):
             return True
         return False
+
+    def __gera_usuario(self):
+        return self.__email.split('@')[0]
 
 
 
@@ -170,7 +192,12 @@ print()
 
 # Métodos de Classe
 
-user = Usuario('Felicity', 'Jones', 'felicity@gmail.com', '123456')
+user = Usuario('Felicity', 'Jones', 'felicity@gmail.com', '123456') # Acessando o método privado dentro da classe.
 
-Usuario.conta_usuarios() # Forma correta de acesso. Via o nome da classe.
-user.conta_usuarios() # Possível, mas incorreta. Via a instância da classe.
+# Usuario.conta_usuarios() # Forma correta de acesso. Via o nome da classe.
+# user.conta_usuarios() # Possível, mas incorreta. Via a instância da classe.
+#
+# Usuario.ver()
+
+#print(user.__gera_usuario()) # Vai dar erro, pois não tenho acesso ao método privado.
+print(user._Usuario__gera_usuario()) # Acesso de forma ruim.
