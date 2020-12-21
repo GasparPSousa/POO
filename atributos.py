@@ -54,14 +54,6 @@ class ContaCorrente:
         self.saldo = saldo
 
 
-class Produto:
-
-    def __init__(self, nome, descricao, valor):
-        self.nome = nome
-        self.descricao = descricao
-        self.valor = valor
-
-
 class Usuario:
 
     def __init__(self, nome, email, senha):
@@ -125,10 +117,56 @@ class Acesso:
 
 ## Significa que ao criarmos instâncias/objetos de uma classe, todas as instâncias terão estes atributos.
 
-user1 = Acesso('user1@gmail.com', '123456')
-user2 = Acesso('user2@gmail.com', '654321')
-# Duas Instâncias/Dois Objetos da classe Acesso. Ambos tem tanto email quanto senha.
+# user1 = Acesso('user1@gmail.com', '123456')
+# user2 = Acesso('user2@gmail.com', '654321')
+# # Duas Instâncias/Dois Objetos da classe Acesso. Ambos tem tanto email quanto senha.
+#
+# user1.mostra_email()
+# user2.mostra_email()
 
-user1.mostra_email()
-user2.mostra_email()
 
+# Atributos de Classe
+
+# p1 = Produto('PlayStation 4', 'Video game', 2300)
+# p2 = Produto('Xbox S', 'Video game', 4500)
+
+# Atributos de Classe, são atributos que são declarados DIRETAMENTE na classe, ou seja, FORA do Construtor.
+# Geralmente já inicializamos um valor e este valor é compartilhado entre todas as instâncias da classe.
+# Ou seja, ao invés de cada instância da classe ter seus próprios valores como é o caso do "atributo de instância",
+# com os "atributos de classe" todas as instâncias terão o mesmo valor para este atributo.
+
+# Refatorar a classe Produto
+
+class Produto:
+
+    #Atributo de Classe
+    imposto = 1.05  # 0.05% de imposto
+    contador = 0 # Inicializando o contador
+
+    def __init__(self, nome, descricao, valor):
+        self.id = Produto.contador + 1 # Quando o objeto for criado, o objeto recebe no id, esse contador + 1
+        self.nome = nome
+        self.descricao = descricao
+        self.valor = (valor * Produto.imposto)
+        Produto.contador = self.id  # Incremento do contador para que sempre pegue o próximo número e assim por diante.
+
+
+p1 = Produto('PlayStation 4', 'Video game', 2300)
+p2 = Produto('Xbox S', 'Video game', 4500)
+
+print(p1.valor)  # Acesso possível, mas incorreto de um atributo de classe.
+print(p2.valor)  # Acesso possível, mas incorreto de um atributo de classe.
+
+# OBS: Não precisamos criar uma instância de uma classe para fazer acesso a um atributo de classe.
+
+print(Produto.imposto) # Acesso correto de um atributo de classe.
+
+print(p1.id)
+print(p2.id)
+
+# OBS: Em linguagens como Java, os atributos que conhecidos como atributos de classe aqui em Python,
+# são chamados de atributos estáticos.
+
+# Para os "atributos de classe", eles são alocados apenas uma vez na memória, independente da quantidade
+# de objetos instânciados. Já os "atributos de instâncias", eles são alocados várias vezes a cada objeto
+# instanciado.
