@@ -15,6 +15,12 @@ Em Python, dividimos os métodos em 2 grupos:
                                 Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
     É um método que está dentro da prória classe.
 
+    # Métodos de Classe
+    Mesma ideia dos atributos de classe.
+    Os métodos de classe não estão vinculados a nenhuma instância da classe, mas sim diretamente a ela.
+    Uma diferença aqui nos métodos de classe em relação aos atributos de classe, é que na declaração
+    desses métodos, agente utiliza um decorator para indicar que o método é de classe e não de instância.
+
 O método dunder init __init__ é um objeto especial chamado de construtor e sua função é
 contruir o objeto a partir da classe.
 
@@ -79,13 +85,22 @@ from passlib.hash import pbkdf2_sha256 as cryp
 
 class Usuario:
 
+    contador = 0
+
+    @classmethod #decorator
+    def conta_usuarios(cls): # O primeiro parâmetro não é o self, mas sim o cls, que é a própria classe.
+        print(f'Temos {cls.contador} usuário(s) no sistema ')
+
     def __init__(self, nome, sobrenome, email, senha):
+        self.__id = Usuario.contador + 1
         self.__nome = nome
         self.__sobrenome = sobrenome
         self.__email = email
         self.__senha = cryp.hash(senha, rounds=200000, salt_size=16)
         # rounds vai fazer 200000 embaralhamentos. Qto mais embaralhado, mais a chance da senha ser forte.
         # salt_size é o tamanho da parte do texto que será juntado a outro para criptografar.
+        Usuario.contador = self.__id
+
 
     def nome_completo(self):
         return f'{self.__nome} {self.__sobrenome}'
@@ -100,13 +115,13 @@ class Usuario:
 
 p1 = Produto('Play Station 4', 'Video game', 2300)
 
-print(p1.desconto(20))
-# Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
-
-# print(Produto.desconto(40)) # Dá Erro, pq ela não tem valor,não tem objeto.
-
-print(Produto.desconto(p1, 20)) # Agora conseguimos fazer pela classe, esse p1 é o próprio objeto.
-# self, desconto e o self é o próprio objeto em si.
+# print(p1.desconto(20))
+# # Pq precisamos de uma instância do objeto para poder fazer acesso a ele.
+#
+# # print(Produto.desconto(40)) # Dá Erro, pq ela não tem valor,não tem objeto.
+#
+# print(Produto.desconto(p1, 20)) # Agora conseguimos fazer pela classe, esse p1 é o próprio objeto.
+# # self, desconto e o self é o próprio objeto em si.
 
 print()
 
@@ -127,27 +142,35 @@ print()
 # print(f'Senha User 2: {user2._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
 
 
-nome = input('Informa o nome: ')
-sobrenome = input('Informa o sobrenome: ')
-email = input('Informe o e-mail: ')
-senha = input('Informe a senha: ')
-confirma_senha = input('Confirme a senha: ')
+# nome = input('Informa o nome: ')
+# sobrenome = input('Informa o sobrenome: ')
+# email = input('Informe o e-mail: ')
+# senha = input('Informe a senha: ')
+# confirma_senha = input('Confirme a senha: ')
+#
+# if senha == confirma_senha:
+#     user = Usuario(nome, sobrenome, email, senha)
+# else:
+#     print('Senha não confere....')
+#     exit(42)
+#
+# print('Usuário criado com sucesso!')
+#
+# senha = input('Informe a senha para acesso: ')
+#
+# if user.checa_senha(senha):
+#     print('Acesso permitido')
+# else:
+#     print('Acesso negado')
+#
+# print(f'Senha User Criptografada: {user._Usuario__senha}')  # Acesso errado!
+# # Essa senha criptografa que armazenamos nos BD...não é o texto puro, agente nem vê o texto puro
+# # que o usuário digita. Por isso as senhas criptografadas são salvas nos BD, é uma questão de segurança.
 
-if senha == confirma_senha:
-    user = Usuario(nome, sobrenome, email, senha)
-else:
-    print('Senha não confere....')
-    exit(42)
 
-print('Usuário criado com sucesso!')
+# Métodos de Classe
 
-senha = input('Informe a senha para acesso: ')
+user = Usuario('Felicity', 'Jones', 'felicity@gmail.com', '123456')
 
-if user.checa_senha(senha):
-    print('Acesso permitido')
-else:
-    print('Acesso negado')
-
-print(f'Senha User Criptografada: {user._Usuario__senha}')  # Acesso errado!
-# Essa senha criptografa que armazenamos nos BD...não é o texto puro, agente nem vê o texto puro
-# que o usuário digita. Por isso as senhas criptografadas são salvas nos BD, é uma questão de segurança.
+Usuario.conta_usuarios() # Forma correta de acesso. Via o nome da classe.
+user.conta_usuarios() # Possível, mas incorreta. Via a instância da classe.
