@@ -70,16 +70,31 @@ class Produto:
         # A função do self aqui é pegar o produto em si.
 
 
+# Fizemos a instalação usando o.... pip install passlib
+# Para fazer a criptografia da senha.
+# O tipo sha256 é extremamente poderoso.
+
+from passlib.hash import pbkdf2_sha256 as cryp
+
+
 class Usuario:
 
     def __init__(self, nome, sobrenome, email, senha):
         self.__nome = nome
         self.__sobrenome = sobrenome
         self.__email = email
-        self.__senha = senha
+        self.__senha = cryp.hash(senha, rounds=200000, salt_size=16)
+        # rounds vai fazer 200000 embaralhamentos. Qto mais embaralhado, mais a chance da senha ser forte.
+        # salt_size é o tamanho da parte do texto que será juntado a outro para criptografar.
 
     def nome_completo(self):
         return f'{self.__nome} {self.__sobrenome}'
+
+    def checa_senha(self, senha):
+        if cryp.verify(senha, self.__senha):
+            return True
+        return False
+
 
 
 
@@ -95,18 +110,44 @@ print(Produto.desconto(p1, 20)) # Agora conseguimos fazer pela classe, esse p1 �
 
 print()
 
-user1 = Usuario('Gaspar', 'Sousa', 'gasparufrj@gmail.com', '123456')
-user2 = Usuario('Cristina', 'Salles', 'salles@gmail.com', '654321')
+# user1 = Usuario('Gaspar', 'Sousa', 'gasparufrj@gmail.com', '123456')
+# user2 = Usuario('Cristina', 'Salles', 'salles@gmail.com', '654321')
+#
+# print(user1.nome_completo()) # Aqui o self é o user1. Aqui estou usando a instância user1
+# print(user2.nome_completo()) # Aqui o self é o user2. Aqui estou usando a instância user2
+#
+# print(Usuario.nome_completo(user1)) # Aqui estou usando a Classe e a classe não tem self, ela não tem instância,
+# # então passei o self user1 como parâmetro.
+# print(Usuario.nome_completo(user2)) # Aqui estou usando a Classe e a classe não tem self, ela não tem instância,
+# # então passei o self user2 como parâmetro.
+#
+# print()
+#
+# print(f'Senha User 1: {user1._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
+# print(f'Senha User 2: {user2._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
 
-print(user1.nome_completo()) # Aqui o self é o user1. Aqui estou usando a instância user1
-print(user2.nome_completo()) # Aqui o self é o user2. Aqui estou usando a instância user2
 
-print(Usuario.nome_completo(user1)) # Aqui estou usando a Classe e a classe não tem self, ela não tem instância,
-# então passei o self user1 como parâmetro.
-print(Usuario.nome_completo(user2)) # Aqui estou usando a Classe e a classe não tem self, ela não tem instância,
-# então passei o self user2 como parâmetro.
+nome = input('Informa o nome: ')
+sobrenome = input('Informa o sobrenome: ')
+email = input('Informe o e-mail: ')
+senha = input('Informe a senha: ')
+confirma_senha = input('Confirme a senha: ')
 
-print()
+if senha == confirma_senha:
+    user = Usuario(nome, sobrenome, email, senha)
+else:
+    print('Senha não confere....')
+    exit(42)
 
-print(f'Senha User 1: {user1._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
-print(f'Senha User 2: {user2._Usuario__senha}') # Acesso de forma errada de um atributo de classe.
+print('Usuário criado com sucesso!')
+
+senha = input('Informe a senha para acesso: ')
+
+if user.checa_senha(senha):
+    print('Acesso permitido')
+else:
+    print('Acesso negado')
+
+print(f'Senha User Criptografada: {user._Usuario__senha}')  # Acesso errado!
+# Essa senha criptografa que armazenamos nos BD...não é o texto puro, agente nem vê o texto puro
+# que o usuário digita. Por isso as senhas criptografadas são salvas nos BD, é uma questão de segurança.
