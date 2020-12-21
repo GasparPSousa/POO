@@ -189,3 +189,19 @@ print(f'Produto: {p2.nome}, Descrição: {p2.descricao}, Valor: {p2.valor}, Peso
 
 # OBS: Apenas deixando claro que existe essa possibilidade, mas não é comum "Atributos Dinâmicos".
 # Comum é "Atributos de Instância" e "Atributos de Classes".
+
+# Deletando Atributos Dinâmicamente
+
+print(p1.__dict__)
+print(p2.__dict__)
+
+#print(Produto.__dict__)
+
+del p2.peso # Atributo Dinâmico
+del p2.valor # Atributo de Instância
+del p2.descricao # Atributo de Instância
+
+print(p1.__dict__)
+print(p2.__dict__)
+
+# Em Python, assim como eu consigo criar atributos dinâmicamentes, eu consigo remover atributos dinâmicamentes.
