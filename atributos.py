@@ -127,9 +127,6 @@ class Acesso:
 
 # Atributos de Classe
 
-# p1 = Produto('PlayStation 4', 'Video game', 2300)
-# p2 = Produto('Xbox S', 'Video game', 4500)
-
 # Atributos de Classe, são atributos que são declarados DIRETAMENTE na classe, ou seja, FORA do Construtor.
 # Geralmente já inicializamos um valor e este valor é compartilhado entre todas as instâncias da classe.
 # Ou seja, ao invés de cada instância da classe ter seus próprios valores como é o caso do "atributo de instância",
@@ -151,22 +148,44 @@ class Produto:
         Produto.contador = self.id  # Incremento do contador para que sempre pegue o próximo número e assim por diante.
 
 
-p1 = Produto('PlayStation 4', 'Video game', 2300)
-p2 = Produto('Xbox S', 'Video game', 4500)
+# p1 = Produto('PlayStation 4', 'Video game', 2300)
+# p2 = Produto('Xbox S', 'Video game', 4500)
+#
+# print(p1.valor)  # Acesso possível, mas incorreto de um atributo de classe.
+# print(p2.valor)  # Acesso possível, mas incorreto de um atributo de classe.
+#
+# # OBS: Não precisamos criar uma instância de uma classe para fazer acesso a um atributo de classe.
+#
+# print(Produto.imposto) # Acesso correto de um atributo de classe.
+#
+# print(p1.id)
+# print(p2.id)
 
-print(p1.valor)  # Acesso possível, mas incorreto de um atributo de classe.
-print(p2.valor)  # Acesso possível, mas incorreto de um atributo de classe.
-
-# OBS: Não precisamos criar uma instância de uma classe para fazer acesso a um atributo de classe.
-
-print(Produto.imposto) # Acesso correto de um atributo de classe.
-
-print(p1.id)
-print(p2.id)
-
-# OBS: Em linguagens como Java, os atributos que conhecidos como atributos de classe aqui em Python,
-# são chamados de atributos estáticos.
+# OBS: Em linguagens como Java, os atributos que são conhecidos como "atributos de classe" aqui em Python,
+# são chamados de "atributos estáticos".
 
 # Para os "atributos de classe", eles são alocados apenas uma vez na memória, independente da quantidade
 # de objetos instânciados. Já os "atributos de instâncias", eles são alocados várias vezes a cada objeto
 # instanciado.
+
+
+# Atributos Dinâmicos
+#  É um "atributo de instância" que pode ser "criado em tempo de execução".
+
+# OBS:  O atributo dinâmico será exclusivo da instância que o criou.
+
+p1 = Produto('Play Station 4', 'Video game', 2300)
+
+p2 = Produto('Arroz', 'mercearia', 5.99)
+
+# Criando um atributo dinâmico em tempo de execução
+
+p2.peso = '5Kg'  # Note que na classe Produto não existe o atributo peso.
+# Criando um atributo já na instância do objeto, por isso que é tempo execução.
+
+print(f'Produto: {p2.nome}, Descrição: {p2.descricao}, Valor: {p2.valor}, Peso: {p2.peso}')
+# print(f'Produto: {p1.nome}, Descrição: {p1.descricao}, Valor: {p1.valor}, Peso: {p1.peso}') # Vai gerar erro porque
+# peso não existe na instância p1.
+
+# OBS: Apenas deixando claro que existe essa possibilidade, mas não é comum "Atributos Dinâmicos".
+# Comum é "Atributos de Instância" e "Atributos de Classes".
