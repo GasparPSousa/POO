@@ -17,6 +17,15 @@ class Lampada:
         self.__luminosidade = luminosidade
         self.__ligada = False
 
+    def checa_lampada(self):
+        return self.__ligada
+
+    def ligar_desligar(self):
+        if self.__ligada:
+            self.__ligada = False
+        else:
+            self.__ligada = True
+
 
 class ContaCorrente:
 
@@ -40,6 +49,13 @@ class Usuario:
 
 # Objetos/Instâncias
 lamp1 = Lampada('branca', 110, 60)
+
+lamp1.ligar_desligar() # A lampada está desligada e vai ser ligada.
+lamp1.ligar_desligar() # A lampada está ligada e vai ser desligada.
+lamp1.ligar_desligar() # A lampada está desligada e vai ser ligada.
+
+
+print(f'A lâmpada está ligda? {lamp1.checa_lampada()}')
 
 cc1 = ContaCorrente(5000, 20000)
 
