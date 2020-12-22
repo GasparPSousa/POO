@@ -6,6 +6,20 @@ representação computacional, podemos criar quantos objetos forem necessários.
 objetos/instâncias de uma classe como variáveis do tipo definido na classe.
 
 
+# Objetos/Instâncias
+lamp1 = Lampada('branca', 110, 60)
+
+lamp1.ligar_desligar() # A lampada está desligada e vai ser ligada.
+lamp1.ligar_desligar() # A lampada está ligada e vai ser desligada.
+lamp1.ligar_desligar() # A lampada está desligada e vai ser ligada.
+
+
+print(f'A lâmpada está ligda? {lamp1.checa_lampada()}')
+
+cc1 = ContaCorrente(5000, 20000)
+
+user1 = Usuario('Gaspar', 'Sousa', 'gasparufrj@gmail.com', '654321')
+
 """
 
 
@@ -26,16 +40,29 @@ class Lampada:
         else:
             self.__ligada = True
 
+class Cliente:
+
+    def __init__(self, nome, cpf):
+        self.__nome = nome
+        self.__cpf = cpf
+
+    def diz(self):
+        print(f'O cliente {self.__nome} diz Oi! ')
+
 
 class ContaCorrente:
 
     contador = 4999
 
-    def __init__(self, limite, saldo):
+    def __init__(self, limite, saldo,cliente):
         self.__numero = ContaCorrente.contador + 1
         self.__limite = limite
         self.__saldo = saldo
+        self.__cliente = cliente
         ContaCorrente.contador = self.__numero
+
+    def mostra_cliente(self):
+        print(f'O cliente é {self.__cliente._Cliente__nome}')
 
 
 class Usuario:
@@ -47,16 +74,11 @@ class Usuario:
         self.__senha = senha
 
 
-# Objetos/Instâncias
-lamp1 = Lampada('branca', 110, 60)
 
-lamp1.ligar_desligar() # A lampada está desligada e vai ser ligada.
-lamp1.ligar_desligar() # A lampada está ligada e vai ser desligada.
-lamp1.ligar_desligar() # A lampada está desligada e vai ser ligada.
+cliente1 = Cliente('Cristina Salles', '123.456.789-01')
 
+cc1 = ContaCorrente(5000, 20000, cliente1)
 
-print(f'A lâmpada está ligda? {lamp1.checa_lampada()}')
+cc1.mostra_cliente()
 
-cc1 = ContaCorrente(5000, 20000)
-
-user1 = Usuario('Gaspar', 'Sousa', 'gasparufrj@gmail.com', '654321')
+cc1._ContaCorrente__cliente.diz()
