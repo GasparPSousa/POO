@@ -53,6 +53,21 @@ conta1.titular = 'Xuxa'
 conta1.saldo = 999999999999999
 conta1.limite = 9999999999999999999999999
 
+conta1.extrato()
+
+
+# Logo, como agora o acesso está privado, agente consegue "não" consegue fazer nem leitura e muito menos conseguimos
+# alterar os dados. Com isso a segurança "melhora".
+# Só de tornar os atributos privados, já temos nossa conta protegida sem "nenhum" problema de infração.
+
+
+## Embora, lembrando novamente, que a linguagem Python não impede agente de fazer acesso aos dados.
+# Está na mão do programador, do desenvolvedor.
+
+print(conta1._Conta__titular) # Name Mungling
+conta1._Conta__titular = 'Zico'
+print(conta1.__dict__)
+
 """
 
 
@@ -71,29 +86,29 @@ class Conta:
         print(f'Saldo de {self.__saldo} do titular {self.__titular} com limite de {self.__limite}')
 
     def depositar(self, valor):
-        self.__saldo += valor
+        if valor > 0:
+            self.__saldo += valor
+        else:
+            print('O valor precisa ser positivo')
+
 
     def sacar(self, valor):
-        self.__saldo -= valor
+        if valor > 0:
+            if self.__saldo >= valor:
+                self.__saldo -= valor
+            else:
+                print('Saldo Insuficiente')
+        else:
+            print('O valor deve ser positivo')
 
 
 # Testando
 
 conta1 = Conta('Gaspar', 150.00, 1500)
-
 print(conta1.__dict__)
 
-conta1.extrato()
+conta1.depositar(150)
+print(conta1.__dict__)
 
-
-# Logo, como agora o acesso está privado, agente consegue "não" consegue fazer nem leitura e muito menos conseguimos
-# alterar os dados. Com isso a segurança "melhora".
-# Só de tornar os atributos privados, já temos nossa conta protegida sem "nenhum" problema de infração.
-
-
-## Embora, lembrando novamente, que a linguagem Python não impede agente de fazer acesso aos dados.
-# Está na mão do programador, do desenvolvedor.
-
-print(conta1._Conta__titular) # Name Mungling
-conta1._Conta__titular = 'Zico'
+conta1.sacar(2000)
 print(conta1.__dict__)
