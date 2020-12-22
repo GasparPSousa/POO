@@ -39,6 +39,20 @@ instancia._Pessoa__falar()
 Em POO, Abstração é o ato de expor apenas dados relevantes de uma classe, escondendo os atributos e métodos privados
 do usuário.
 
+
+
+print(conta1.numero) # Agora os atributos estão privados, nem leitura mais consigo fazer.
+print(conta1.titular)
+print(conta1.saldo)
+print(conta1.limite)
+
+# Como o acesso agora está privado, além de não conseguir fazer a leitura, não conseguimos fazer alteração.
+
+conta1.numero = 42 # Agora os atributos estão privados, nem leitura mais consigo fazer.
+conta1.titular = 'Xuxa'
+conta1.saldo = 999999999999999
+conta1.limite = 9999999999999999999999999
+
 """
 
 
@@ -47,42 +61,39 @@ class Conta:
     contador = 400
 
     def __init__(self, titular, saldo, limite):
-        self.numero = Conta.contador
-        self.titular = titular
-        self.saldo = saldo
-        self.limite = limite
+        self.__numero = Conta.contador
+        self.__titular = titular
+        self.__saldo = saldo
+        self.__limite = limite
         Conta.contador += 1
 
     def extrato(self):
-        print(f'Saldo de {self.saldo} do titular {self.titular} com limite de {self.limite}')
+        print(f'Saldo de {self.__saldo} do titular {self.__titular} com limite de {self.__limite}')
 
     def depositar(self, valor):
-        self.saldo += valor
+        self.__saldo += valor
 
     def sacar(self, valor):
-        self.saldo -= valor
+        self.__saldo -= valor
 
 
 # Testando
 
 conta1 = Conta('Gaspar', 150.00, 1500)
 
-print(conta1.numero)
-print(conta1.titular)
-print(conta1.saldo)
-print(conta1.limite)
-
-## Como o acesso está público, olha o que podemos fazer...
-
-conta1.numero = 42
-conta1.titular = 'Xuxa'
-conta1.saldo = 999999999999999
-conta1.limite = 9999999999999999999999999
-
 print(conta1.__dict__)
 
-## Logo, como o acesso está público, agente consegue não somente fazer a leitura, como
-# também podemos alterar os dados. Com isso a segurança vai por água abaixo.
-# Pq desse problema? Pois agente não encapsulou os dados conforme deveria.
-
 conta1.extrato()
+
+
+# Logo, como agora o acesso está privado, agente consegue "não" consegue fazer nem leitura e muito menos conseguimos
+# alterar os dados. Com isso a segurança "melhora".
+# Só de tornar os atributos privados, já temos nossa conta protegida sem "nenhum" problema de infração.
+
+
+## Embora, lembrando novamente, que a linguagem Python não impede agente de fazer acesso aos dados.
+# Está na mão do programador, do desenvolvedor.
+
+print(conta1._Conta__titular) # Name Mungling
+conta1._Conta__titular = 'Zico'
+print(conta1.__dict__)
