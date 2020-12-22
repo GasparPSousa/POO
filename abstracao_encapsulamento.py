@@ -68,6 +68,15 @@ print(conta1._Conta__titular) # Name Mungling
 conta1._Conta__titular = 'Zico'
 print(conta1.__dict__)
 
+conta1 = Conta('Gaspar', 150.00, 1500)
+print(conta1.__dict__)
+
+conta1.depositar(150)
+print(conta1.__dict__)
+
+conta1.sacar(2000)
+print(conta1.__dict__)
+
 """
 
 
@@ -101,14 +110,28 @@ class Conta:
         else:
             print('O valor deve ser positivo')
 
+    def transferir(self, valor, conta_destino):
+        # Remover o valor da conta de origem
+        self.__saldo -= valor
+        self.__saldo -= 10  # Taxa de Transferência paga por quem realizou a transferência.
 
-# Testando
+        # Adicionar o valor na conta de destino
+        conta_destino.__saldo += valor
+
+
+# Testando Transferência de Valor.
 
 conta1 = Conta('Gaspar', 150.00, 1500)
-print(conta1.__dict__)
+conta1.extrato()
 
-conta1.depositar(150)
-print(conta1.__dict__)
+conta2 = Conta('Cristina', 300, 2000)
+conta2.extrato()
 
-conta1.sacar(2000)
-print(conta1.__dict__)
+print()
+
+conta2.transferir(100, conta1)
+
+conta1.extrato()
+conta2.extrato()
+
+
