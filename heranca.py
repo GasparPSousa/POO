@@ -18,7 +18,6 @@ Entidade Funcionario
     - cpf
     - matricula
 
-"""
 
 class Cliente:
 
@@ -42,6 +41,59 @@ class Funcionario:
 
     def nome_completo(self):
         return f'{self.__nome} {self.__sobrenome}'
+
+## Nas classes Cliente e Funcionario, existe 1 método e 3 atributos iguais...
+
+## Pergunta: Existem alguma Entidade genérica o suficiente para encapsular
+os atributos e métodos comuns a outras Entidades??
+
+## No exemplo em tela, a Entidade Pessoa seria adequada.
+
+OBS: Quando uma classe herda de outra classe, ela herda TODOS atributos e métodos da classe herdada.
+
+Quando uma classe herda de outra classe, a classe herdada é conhecida por:
+    [Pessoa]
+    - Super Classe
+    - Classe Mãe
+    - Classe Pai
+    - Classe Base
+    - Classe Genérica
+
+Quando uma classe herda de outra classe, ela é chamada de:
+    [Cliente], [Funcionário]
+    - Sub Classe
+    - Classe Filha
+    - Classe Específica
+
+
+
+"""
+
+class Pessoa:
+
+    def __init__(self, nome, sobrenome, cpf):
+        self.__nome = nome
+        self.__sobrenome = sobrenome
+        self.__cpf = cpf
+
+    def nome_completo(self):
+        return f'{self.__nome} {self.__sobrenome}'
+
+class Cliente(Pessoa):
+    """ Cliente herda de Pessoa """
+
+    def __init__(self, nome, sobrenome, cpf, renda):
+        super().__init__(nome, sobrenome, cpf) # modo com faço acesso ao Construtor da Super Classe.
+        self.__renda = renda
+
+
+class Funcionario(Pessoa):
+    """ Funcionario herda de Pessoa """
+
+    def __init__(self, nome, sobrenome, cpf, matricula):
+        super().__init__(nome, sobrenome, cpf)
+        self.__matricula = matricula
+
 
 
 cliente1 = Cliente('Cristina', 'Salles', '123.456.789-01', 20000)
