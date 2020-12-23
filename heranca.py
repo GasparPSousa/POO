@@ -67,8 +67,6 @@ Quando uma classe herda de outra classe, ela é chamada de:
 
 
 
-"""
-
 class Pessoa:
 
     def __init__(self, nome, sobrenome, cpf):
@@ -80,10 +78,45 @@ class Pessoa:
         return f'{self.__nome} {self.__sobrenome}'
 
 class Cliente(Pessoa):
+    # Cliente herda de Pessoa
+
+    def __init__(self, nome, sobrenome, cpf, renda):
+        Pessoa.__init__(self, nome, sobrenome, cpf) # Forma não comum de acessar dados da super classe.
+        self.__renda = renda
+
+
+class Funcionario(Pessoa):
+    # Funcionario herda de Pessoa
+
+    def __init__(self, nome, sobrenome, cpf, matricula):
+        super().__init__(nome, sobrenome, cpf) # modo com faço acesso ao Construtor da Super Classe. Forma comum
+        self.__matricula = matricula
+
+print(cliente1.nome_completo())
+print(funcionario1.nome_completo())
+
+print(cliente1.__dict__)
+print(funcionario1.__dict__)
+
+"""
+
+
+class Pessoa:
+
+    def __init__(self, nome, sobrenome, cpf):
+        self.__nome = nome
+        self.__sobrenome = sobrenome
+        self.__cpf = cpf
+
+    def nome_completo(self):
+        return f'{self.__nome} {self.__sobrenome}'
+
+
+class Cliente(Pessoa):
     """ Cliente herda de Pessoa """
 
     def __init__(self, nome, sobrenome, cpf, renda):
-        super().__init__(nome, sobrenome, cpf) # modo com faço acesso ao Construtor da Super Classe.
+        Pessoa.__init__(self, nome, sobrenome, cpf) # Forma não comum de acessar dados da super classe.
         self.__renda = renda
 
 
@@ -91,10 +124,15 @@ class Funcionario(Pessoa):
     """ Funcionario herda de Pessoa """
 
     def __init__(self, nome, sobrenome, cpf, matricula):
-        super().__init__(nome, sobrenome, cpf)
+        super().__init__(nome, sobrenome, cpf) # modo com faço acesso ao Construtor da Super Classe. Forma comum
         self.__matricula = matricula
 
+    def nome_completo(self):
+        return f'Funcionário: {self.__matricula} Nome: {self._Pessoa__nome}'
 
+
+# Sobreescrita de Métodos(Overriding)
+# Ocorre quando rescrevemos/reimplementamos um método presente na super classe em classes filhas
 
 cliente1 = Cliente('Cristina', 'Salles', '123.456.789-01', 20000)
 funcionario1 = Funcionario('Gaspar', 'Sousa', '987.654.321-10', 50001)
