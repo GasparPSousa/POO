@@ -8,7 +8,6 @@ Em Python, a gente pode conferir a ordem de execução dos métodos (MRO) de 3 f
     - via propriedade da classe __mro__
     - via método mro()
     - via help
-
     
 
 """
@@ -47,7 +46,7 @@ class Terrestre(Animal):
         return f'Eu sou {self._Animal__nome} da terra!'
 
 
-class Pinguim(Aquatico, Terrestre):
+class Pinguim(Terrestre, Aquatico):
 
     def __init__(self, nome):
         super().__init__(nome)
@@ -71,3 +70,6 @@ class Pinguim(Aquatico, Terrestre):
 
 """
 
+print(Pinguim.mro())
+print()
+help(Pinguim)
