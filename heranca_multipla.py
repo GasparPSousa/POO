@@ -110,3 +110,24 @@ print(tux.cumprimentar()) # ????? qual método cumprimentar ele vai executar?
 # Tem a ver com o Method Resolution Order - MRO
 # class Pinguim(Terrestre, Aquatico): Logo, o método cumprimentar utilizado será do método Terrestre
 # que vem primeiro que Aquático na ordem dos parâmetros da class Pinguim.
+
+
+# Objeto é instância de.....
+
+print(f'Tux é instância de Pinguim?? {isinstance(tux, Pinguim)}') # True
+print(f'Tux é instância de Aquático?? {isinstance(tux, Aquatico)}') # True
+print(f'Tux é instância de Terrestre?? {isinstance(tux, Terrestre)}') # True
+print(f'Tux é instância de Animal?? {isinstance(tux, Animal)}') # True
+print(f'Tux é instância de object?? {isinstance(tux, object)}') # True, por padrão, qq classe está herdando de object.
+
+
+class Pessoa:
+    pass
+
+
+class Pessoa(object):
+    pass
+
+# A partir do momento que criamos uma classe em Python, ela automaticamente herda de object.
+# Então qq objeto nosso é do tipo object.
+
