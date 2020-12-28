@@ -29,6 +29,18 @@ class Conta:
         self.__saldo -=valor
         destino.__saldo += valor
 
+    def get_numero(self):
+        return self.__numero
+
+    def get_titular(self):
+        return self.__titular
+
+    def get_saldo(self):
+        return self.__saldo
+
+    def get_limite(self):
+        return self.__limite
+
 
 conta1 = Conta('Gaspar', 3000, 5000)
 conta2 = Conta('Cristina', 2000, 4000)
@@ -37,13 +49,13 @@ print(conta1.extrato())
 print(conta2.extrato())
 
 # Caso eu queira somar os saldos das contas
-soma = conta1._Conta__saldo + conta2._Conta__saldo
-print(f'A soma do saldo das contas corrento do {conta1._Conta__titular} e da {conta2._Conta__titular} é R$ {soma},00.')
-# Mas não é correto fazer acesso dessa forma. Você NUNCA deveria fazer acesso dessa forma!
-# Só saiba que existe essa possibildiade, mas vc NUNCA deveria fazer esse acesso dessa forma num atributo PRIVADO.
-# Se está declarado PRIVADO, é porque ele deve ser acessado somente DENTRO da classe. Essa é a REGRA!
-# Para o próprio bem do sistema e bem do desenvolvedor, o ideal é que vc não faça acesse desse tipo.
+soma = conta1.get_saldo() + conta2.get_saldo()
+print(f'A soma do saldo das contas corrento do {conta1.get_titular()} e da {conta2.get_titular()} é R$ {soma},00.')
+# Agora sim, fazendo acesso aos atributos PRIVADOS da forma correta!
 
 
+# A melhor forma para termos acesso a métodos e atributos é criando métodos para manipulá-los.
+# E chamamos esses métodos de GETTERS e SETTERS.
+# GET significa PEGAR
 
 
