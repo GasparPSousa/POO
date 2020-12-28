@@ -6,6 +6,12 @@ Morfis <- Formas
 
 Objetos que podem se comportar de formas diferentes.
 
+
+Quando a gente reimplementa um método presente na classe pai em classes filhas
+estamos realizando uma sobrescrita de método(Overrinding)
+
+Overrinding é a essência(melhor representação) do POLIMORFISMO.
+
 """
 
 class Animal(object):
