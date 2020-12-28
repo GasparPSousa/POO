@@ -89,6 +89,11 @@ class Conta:
         self.__limite = limite
         Conta.contador += 1
 
+    # De forma geral, sempre criamos nossos ATRIBUTOS de forma PRIVADA!
+    # Então criamos as propriedades de @property e @atributo.setter de acordo com os casos, SE a gente precisar,
+    # de acordo com as regras de negócio.
+
+
     @property
     def numero(self):
         return self.__numero
@@ -124,6 +129,11 @@ class Conta:
         self.__saldo -=valor
         destino.__saldo += valor
 
+    @property
+    def valor_total(self):
+        return self.__saldo + self.__limite
+    # Estou usando esse método como propriedade, basta utilizar o decorator @property na função.
+
 # Eu gosto sempre de programar nessa ordem:
     # Atributos de classe
     # Construtores e seus Atributos de Instância
@@ -149,7 +159,10 @@ print(conta1.__dict__)
 conta1.limite = 76543
 print(conta1.__dict__)
 print(conta1.limite)
+print()
 
+print(conta1.valor_total) # valor_total não é uma função(se fosse função teria um parenteses), mas sim uma @property.
+print(conta2.valor_total)
 
 # A melhor forma para termos acesso a métodos e atributos é usando Property para manipulá-los.
 # É quase como se fosse um método, mas por causa do decorator @property, fazemos o acesso SEM os parênteses.
