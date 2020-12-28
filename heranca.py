@@ -128,10 +128,12 @@ class Funcionario(Pessoa):
         self.__matricula = matricula
 
     def nome_completo(self):
+        print(super().nome_completo()) # Com o super eu consigo fazer acesso a qualquer atributo ou método da superClasse
+        print(self._Pessoa__cpf)
         return f'Funcionário: {self.__matricula} Nome: {self._Pessoa__nome}'
 
 
-# Sobreescrita de Métodos(Overriding)
+# Sobrescrita de Métodos(Overriding)
 # Ocorre quando rescrevemos/reimplementamos um método presente na super classe em classes filhas
 
 cliente1 = Cliente('Cristina', 'Salles', '123.456.789-01', 20000)
@@ -139,3 +141,7 @@ funcionario1 = Funcionario('Gaspar', 'Sousa', '987.654.321-10', 50001)
 
 print(cliente1.nome_completo())
 print(funcionario1.nome_completo())
+
+#Testando se o git está monitorando
+
+
